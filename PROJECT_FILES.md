@@ -2,8 +2,6 @@
 
 ## Essential Files (Required)
 
-> **⚠️ Note:** This project uses **Advanced Landmark-Based Image Classification**, NOT simple image classification. The model classifies based on extracted hand geometry features, achieving 99.38% accuracy.
-
 ### **Models** ⭐
 ```
 models/
