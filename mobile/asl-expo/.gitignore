@@ -36,6 +36,15 @@ yarn-error.*
 # typescript
 *.tsbuildinfo
 
-# generated native folders
+# Generated native folders
+# NOTE: We KEEP /android in git because it contains:
+#   - Custom native module (SignPredictorModule.kt)
+#   - AI models in assets/ (hand_landmarker.task, asl_landmark_model.tflite)
+# Without these, the app won't work!
 /ios
-/android
+
+# Android build artifacts (NOT the source)
+/android/app/build/
+/android/.gradle/
+/android/build/
+/android/local.properties
