@@ -14,9 +14,110 @@ A mobile application for **American Sign Language (ASL) alphabet recognition** w
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/) LTS
-- [Android Studio](https://developer.android.com/studio) with SDK
+- Node.js (LTS)
+- Java JDK 17 (Temurin or Oracle)
+- Android Studio (SDK, NDK, CMake)
 - Physical Android device or emulator (API 26+)
+
+## 🧰 Installation Guide (Windows)
+
+Follow these steps to set up your environment on Windows for building and running the app.
+
+### 1) Install Node.js (LTS)
+
+- Download and install from https://nodejs.org
+- Verify:
+
+```powershell
+node -v
+npm -v
+```
+
+### 2) Install Java JDK 17
+
+- Recommended: Eclipse Temurin (OpenJDK) 17 from https://adoptium.net
+- Alternatively, Oracle JDK 17 from https://www.oracle.com/java/technologies/downloads/
+- Verify:
+
+```powershell
+java -version
+```
+
+Set JAVA_HOME (adjust the path to your JDK install):
+
+```powershell
+# Example path - update if different on your machine
+setx JAVA_HOME "C:\\Program Files\\Eclipse Adoptium\\jdk-17"
+setx PATH "%PATH%;%JAVA_HOME%\\bin"
+```
+
+### 3) Install Android Studio
+
+- Download from https://developer.android.com/studio and complete installation
+- Launch Android Studio once to initialize the SDK
+
+Install SDK/NDK/CMake via Settings:
+
+1. Android Studio → Settings → Appearance & Behavior → System Settings → Android SDK
+2. Tab “SDK Platforms”: install latest Android API (API 26+ supported; latest recommended i.e. Android 16.0 ("Baklava"))
+3. Tab “SDK Tools”: check and install:
+	- Android SDK Build-Tools
+	- NDK (Side by side)
+	- Android SDK Command-line Tools (latest)
+	- CMake
+    - Android Emulator
+    - Android Emulator Hypervisor Driver (installer)
+	- Android SDK Platform-Tools
+
+Default SDK path (for ANDROID_HOME):
+
+- C:\\Users\\<YourUser>\\AppData\\Local\\Android\\Sdk
+
+Set ANDROID_HOME and add tools to PATH:
+
+```powershell
+setx ANDROID_HOME "%USERPROFILE%\\AppData\\Local\\Android\\Sdk"
+setx PATH "%PATH%;%ANDROID_HOME%\\platform-tools;%ANDROID_HOME%\\cmdline-tools\\latest\\bin"
+```
+
+### 4) Set up an Emulator or Device
+
+- Emulator: Android Studio → More Actions → Virtual Device Manager →  Create Virtual Device (+ button on top) → choose a device (i.e. Pixel 6) + next → Download (name and finish)  → Click start on right side of device name (and wait till it starts)
+- Physical device: Enable Developer Options + USB Debugging; connect via USB and accept the debug prompt
+- Verify device visibility:
+
+```powershell
+adb devices
+```
+
+### 5) Install project dependencies
+
+```powershell
+cd mobile/asl-expo
+npm install
+```
+
+### 6) Build and Run on Android
+make sure to have internet connection on first build & also it required to run the emulator and start mobile from android studio before starting app (and if you are using mobile make sure its unlocked & usb debugging is turned on)
+```powershell
+cd mobile/asl-expo
+npx expo run:android
+```
+
+Build APK without running:
+
+```powershell
+cd mobile/asl-expo/android
+./gradlew.bat :app:assembleDebug
+# Output: android/app/build/outputs/apk/debug/app-debug.apk
+```
+
+### Troubleshooting
+
+- Gradle JDK mismatch: Use JDK 17. In Android Studio, set Project Settings → Gradle JDK to your JDK 17 install.
+- Missing NDK/CMake: Revisit Settings → Android SDK → SDK Tools and install NDK (Side by side) and CMake.
+- Device not detected: Install OEM drivers; run `adb kill-server` then `adb start-server`; ensure USB debugging enabled.
+- Permissions error on Windows: Run terminal as Administrator for initial environment variable setup.
 
 ### Run the App
 
